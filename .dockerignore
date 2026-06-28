@@ -1,0 +1,22 @@
+# Git
+.git
+.gitignore
+
+# Build artifacts — dotnet publish output is copied from the build stage, not here
+**/bin
+**/obj
+
+# IDE / editor
+.vs
+.vscode
+*.user
+
+# Terraform — not part of the app image
+terraform/
+
+# GitHub Actions
+.github/
+
+# Docs
+*.md
+IMPLEMENTATION.md
