@@ -31,8 +31,9 @@ try
         runId, result.Processed, result.Skipped, durationMs);
 
     // Give the NR agent time to flush telemetry before the process exits.
-    // The agent needs up to 20s to connect + harvest on cold start.
-    await Task.Delay(TimeSpan.FromSeconds(20));
+    // Cold-start pattern: first connect attempt fails (~24s), reconnects 15s later (~39s),
+    // fully connected at ~45s. Need at least one 5s harvest cycle after that → 50s total.
+    await Task.Delay(TimeSpan.FromSeconds(40));
     return 0;
 }
 catch (Exception ex)
