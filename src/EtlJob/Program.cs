@@ -30,10 +30,6 @@ try
         "ETL job finished OK. RunId={RunId} Processed={Processed} Skipped={Skipped} DurationMs={DurationMs:F0}",
         runId, result.Processed, result.Skipped, durationMs);
 
-    // Give the NR agent time to flush telemetry before the process exits.
-    // Cold-start pattern: first connect attempt fails (~24s), reconnects 15s later (~39s),
-    // fully connected at ~45s. Need at least one 5s harvest cycle after that → 50s total.
-    await Task.Delay(TimeSpan.FromSeconds(40));
     return 0;
 }
 catch (Exception ex)
