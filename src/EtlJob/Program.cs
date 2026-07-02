@@ -17,7 +17,7 @@ using var services = new ServiceCollection()
     .BuildServiceProvider();
 
 var logger = services.GetRequiredService<ILogger<Program>>();
-logger.LogInformation("ETL job starting. RunId={RunId} StartedAt={StartedAt:O}", runId, startedAt);
+logger.LogInformation("ETL job starting. RunId={RunId}|StartedAt={StartedAt:O}", runId, startedAt);
 
 try
 {
@@ -27,13 +27,13 @@ try
 
     var durationMs = (DateTime.UtcNow - startedAt).TotalMilliseconds;
     logger.LogInformation(
-        "ETL job finished OK. RunId={RunId} Processed={Processed} Skipped={Skipped} DurationMs={DurationMs:F0}",
+        "ETL job finished OK. RunId={RunId}|Status=Success|Processed={Processed}|Skipped={Skipped}|DurationMs={DurationMs:F0}",
         runId, result.Processed, result.Skipped, durationMs);
 
     return 0;
 }
 catch (Exception ex)
 {
-    logger.LogError(ex, "ETL job failed. RunId={RunId}", runId);
+    logger.LogError(ex, "ETL job failed. RunId={RunId}|Status=Failed", runId);
     return 1;
 }
